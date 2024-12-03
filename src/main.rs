@@ -9,12 +9,14 @@ use std::path::{Path, PathBuf};
 #[command(version, about, long_about = None)]
 struct Args {
     /// Input path
+    ///
+    /// Include a file path or a directory path. Do not use any asterisks or wildcards.
     #[arg(short, long)]
-    path: Vec<PathBuf>,
+    path: PathBuf,
 
     /// Output path
-    #[arg(short, long)]
-    out: Option<PathBuf>,
+    #[arg(short, long,default_value="")]
+    out: PathBuf,
 
     /// Debug mode
     #[arg(short, long, default_value_t=false)]
@@ -44,29 +46,29 @@ fn main() {
     if pathtype.is_file() {
 
     }
-//    else if pathtype.is_dir() {
-//        // parse file list if it's a dir
-//        for entry in glob(&format!("{}/**/*.png", pathfr.clone().display())).expect("Failed to read glob pattern (you should panic)") {
-//            match entry {
-//                Ok(path) => {
-//                    // println!("{:?}", path.display());
-//                    filelist.push(path.display().to_string());
-//                },
-//                Err(e) => {
-//                    println!("Shell globbing error");
-//                }
-//            }
-//        }
-//    }
-//    else {
-//        panic!("")
-//    }
-//
+    else if pathtype.is_dir() {
+        // parse file list if it's a dir
+        for entry in glob(&format!("{}/**/*.png", pathfr.clone().display())).expect("Failed to read glob pattern (you should panic)") {
+            match entry {
+                Ok(path) => {
+                    // println!("{:?}", path.display());
+                    filelist.push(path.display().to_string());
+                },
+                Err(e) => {
+                    println!("Shell globbing error");
+                }
+            }
+        }
+    }
+    else {
+        panic!("that input is neither file nor dir and thats scary")
+    }
+
 
 
     if realdebugmode {
         for i in filelist {
-            println!("{i}")
+            println!("List of files: {i}")
         }
     }
 
