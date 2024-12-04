@@ -1,0 +1,5 @@
+input path DIR
+Filepath: "/new2/git/wynn-pack-temp/assets/minecraft/textures/colormap/foliage.png"
+Dimensions: (256, 256)
+Colorspace: RGB
+BitDepth: Eight
