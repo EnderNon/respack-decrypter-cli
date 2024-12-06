@@ -72,6 +72,7 @@ fn main() {
     //    }
 
     for thatpath in filelist {
+        println!("File: {:?}",thatpath);
         catzou::encoder(thatpath.to_owned(), thatpath)
     }
 }
