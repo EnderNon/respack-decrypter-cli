@@ -1,4 +1,4 @@
-mod catzou;
+mod idk;
 use clap::Parser;
 use glob::glob;
 use std::io::{Read};
@@ -73,6 +73,6 @@ fn main() {
 
     for thatpath in filelist {
         println!("File: {:?}",thatpath);
-        catzou::encoder(thatpath.to_owned(), thatpath)
+        idk::encoder(thatpath.to_owned(), thatpath)
     }
 }
