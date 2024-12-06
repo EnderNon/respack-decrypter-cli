@@ -39,10 +39,17 @@ fn main() {
     let pathtype = metadata(&pathfr).unwrap();
     if pathtype.is_file() {
         filelist.push(PathBuf::from(format!("{:?}", pathtype)));
-        println!("input path type is FILE");
+        if debugmode {
+            println!("input path type is FILE");
+        }
     } else if pathtype.is_dir() {
-        println!("input path type is DIR");
+        if debugmode {
+            println!("input path type is DIR");
+        }
         if pathfr.ends_with("/") {
+            if debugmode {
+                println!("Popped trailing / off the end")
+            }
             pathfr.pop();
         }
         // parse file list if it's a dir
@@ -72,7 +79,7 @@ fn main() {
     //    }
 
     for thatpath in filelist {
-        println!("File: {:?}",thatpath);
+        println!("Filename: {:?}",thatpath);
         idk::encoder(thatpath.to_owned(), thatpath)
     }
 }
