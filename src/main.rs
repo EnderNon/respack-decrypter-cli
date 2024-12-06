@@ -1,13 +1,11 @@
 mod catzou;
 use clap::Parser;
 use glob::glob;
-use image::ImageBuffer;
-use std::io::{BufReader, Read};
+use std::io::{Read};
 use std::{
-    fs::{metadata, File},
-    path::{Path, PathBuf},
+    fs::{metadata},
+    path::{PathBuf},
 };
-use zune_png::{zune_core::options::DecoderOptions, PngDecoder};
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
