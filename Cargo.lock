@@ -170,8 +170,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "respack-decrypter"
-version = "0.1.0"
+name = "rpfixer"
+version = "0.2.0"
 dependencies = [
  "adler",
  "clap",
