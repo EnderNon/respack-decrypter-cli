@@ -21,6 +21,8 @@ This tool will not overcome any protection to the zip archive itself. See a prog
 - Download the Rust-Lang for your system
 - run `cargo install rpfixer`
 - Then run the `rpfixer` command
+### Prebuilt package release
+- I haven't made prebuilt packages, sorry. WIP
 
 
 # Syntax
