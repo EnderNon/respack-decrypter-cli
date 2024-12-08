@@ -4,6 +4,7 @@ description = "A tool to fix Minecraft: Java Edition resource pack image protect
 license = "MIT"
 authors = ["endernon"]
 repository = "https://git.frfrnocap.men/endernon/rpfixer"
+readme = "readme.md"
 version = "0.2.0"
 edition = "2021"
 
