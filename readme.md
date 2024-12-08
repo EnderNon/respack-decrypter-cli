@@ -35,7 +35,7 @@ Pipe your output to a new filename.
 
 Note: It might not work for SOME linux shells. But major ones e.g. `zsh`,`bash` support it.
 
-`respack-decrypter --path ~/somedir/ --debug > ~/log.txt`
+`rpfixer --path ~/somedir/ --debug > ~/log.txt`
 
 # License
 
