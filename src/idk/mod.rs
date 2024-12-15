@@ -38,7 +38,7 @@ impl Chunk {
 }
 
 pub fn fix(mut bytes: Vec<u8>) -> Vec<u8> {
-    let mut bufread = Cursor::new(bytes.clone());
+    let mut bufread = Cursor::new(bytes);
 
     // read the png header
     let mut header = [0; 8];
