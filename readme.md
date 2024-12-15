@@ -9,7 +9,7 @@ This tool will not overcome any protection to the zip archive itself. See a prog
 
 ## CLI
 
-### Manual clone
+#### Manual clone
 - download the Rust-Lang for your system
 - download this repository
 - run `cargo build --release` in the directory
@@ -17,25 +17,30 @@ This tool will not overcome any protection to the zip archive itself. See a prog
 - run 
   - `respack-decrypter` if you are on linux/mac (RUN `chmod +x respack-decrypter` ON IT FIRST) 
   - `respack-decrypter.exe` if you are on windows
-### Cargo
+#### Cargo
 - Download the Rust-Lang for your system
 - run `cargo install rpfixer`
 - Then run the `rpfixer` command
-### Prebuilt package release
-- I haven't made prebuilt packages, sorry. WIP
+
+## Function library
+- The library has one function: `rpfixer::idk::fix`. Use a `Vec<u8>` in it.
+#### Example code
+```rust
+use std::fs;
+fn main() {
+    let frfr = fs::read("filepath.png").expect("wtf the path doesnt exist");
+    let mut fr = rpfixer::idk::fix(frfr);
+    fs::write(thatpath, fr).expect("file could not write btw");
+}
+```
 
 
 # Syntax
 
 Check `--help` for syntax.
 
-# I want some logs for checking wtf is happening
+Example syntax:
 
-Pipe your output to a new filename. 
-
-Note: It might not work for SOME linux shells. But major ones e.g. `zsh`,`bash` support it.
-
-`rpfixer --path ~/somedir/ --debug > ~/log.txt`
 
 # License
 

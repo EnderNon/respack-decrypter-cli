@@ -2,7 +2,7 @@ mod idk;
 use clap::Parser;
 use glob::glob;
 use std::{fs::{metadata}, path::{PathBuf}};
-use std::fs::{read, write, File};
+use std::fs::{read, write};
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
