@@ -23,7 +23,7 @@ This tool will not overcome any protection to the zip archive itself. See a prog
 - Then run the `rpfixer` command
 
 ## Function library
-- The library has one function: `rpfixer::idk::fix`. Use a `Vec<u8>` in it.
+- The library has one function: `rpfixer::fix`. Use a `Vec<u8>` in it.
 #### Example code
 ```rust
 use std::fs;

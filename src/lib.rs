@@ -1,9 +1,3 @@
-use std::{
-    fmt::Debug,
-    io::{Read, Write},
-    usize,
-};
-use std::io::Cursor;
 use adler::Adler32;
 use crc32fast::Hasher;
 use miniz_oxide::inflate::core::{
@@ -13,6 +7,12 @@ use miniz_oxide::inflate::core::{
         TINFL_FLAG_USING_NON_WRAPPING_OUTPUT_BUF,
     },
     DecompressorOxide,
+};
+use std::io::Cursor;
+use std::{
+    fmt::Debug,
+    io::{Read, Write},
+    usize,
 };
 
 struct Chunk {

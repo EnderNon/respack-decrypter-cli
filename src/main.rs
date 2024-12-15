@@ -1,8 +1,8 @@
-mod idk;
+mod lib;
 use clap::Parser;
 use glob::glob;
-use std::{fs::{metadata}, path::{PathBuf}};
 use std::fs::{read, write};
+use std::{fs::metadata, path::PathBuf};
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -56,9 +56,7 @@ fn main() {
             match entry {
                 Ok(path) => {
                     // println!("{:?}", path.display());
-                    filelist.push(
-                        path.display().to_string().parse().unwrap()
-                    );
+                    filelist.push(path.display().to_string().parse().unwrap());
                 }
                 Err(e) => {
                     eprintln!("Globbing error... uh oh...");
@@ -76,7 +74,7 @@ fn main() {
     //    }
 
     for thatpath in filelist {
-        println!("Filename: {:?}",thatpath);
+        println!("Filename: {:?}", thatpath);
         let frfr = read(thatpath.to_owned()).expect("wtf the path doesnt exist");
         let mut fr = idk::fix(frfr);
         write(thatpath, fr).expect("file could not write btw");
