@@ -29,7 +29,7 @@ This tool will not overcome any protection to the zip archive itself. See a prog
 use std::fs;
 fn main() {
     let frfr: Vec<u8> = fs::read("filepath.png").expect("wtf the path doesnt exist");
-    let mut fr: Vec<u8> = rpfixer::idk::fix(frfr);
+    let mut fr: Vec<u8> = rpfixer::fix(frfr);
     fs::write("filepath.png", fr).expect("file could not write btw");
 }
 ```
