@@ -1,10 +1,9 @@
 use std::{
     fmt::Debug,
-    fs::File,
-    io::{BufReader, BufWriter, Read, Write},
+    io::{Read, Write},
     usize,
 };
-use std::path::PathBuf;
+use std::io::Cursor;
 use adler::Adler32;
 use crc32fast::Hasher;
 use miniz_oxide::inflate::core::{
@@ -38,9 +37,8 @@ impl Chunk {
     }
 }
 
-pub fn encoder(inpath: PathBuf, outpath: PathBuf) {
-    let file = File::open(inpath).unwrap();
-    let mut bufread = BufReader::new(file);
+pub fn fix(mut bytes: Vec<u8>) -> Vec<u8> {
+    let mut bufread = Cursor::new(bytes.clone());
 
     // read the png header
     let mut header = [0; 8];
@@ -65,11 +63,11 @@ pub fn encoder(inpath: PathBuf, outpath: PathBuf) {
         bufread.read_exact(&mut crc).unwrap();
 
         let mut chunk = Chunk { kind, data, crc };
-        println!("{:?}", chunk);
+        // println!("{:?}", chunk);
 
         // recode the compressed image data
         if chunk.kind == *b"IDAT" {
-            println!("Decompressing IDAT chunk");
+            // println!("Decompressing IDAT chunk");
             let mut decompressor = DecompressorOxide::new();
             decompressor.init();
             let mut buf = vec![0; 1024 * 1024 * 1024]; // this could probably be smaller
@@ -83,10 +81,10 @@ pub fn encoder(inpath: PathBuf, outpath: PathBuf) {
                     | TINFL_FLAG_USING_NON_WRAPPING_OUTPUT_BUF,
             );
 
-            println!(
-                "Decompressed IDAT chunk status {:?}, bytes read {}, bytes outputted {}",
-                data.0, data.1, data.2
-            );
+            // println!(
+            //     "Decompressed IDAT chunk status {:?}, bytes read {}, bytes outputted {}",
+            //     data.0, data.1, data.2
+            // );
 
             let _ = buf.split_off(data.2);
 
@@ -98,7 +96,7 @@ pub fn encoder(inpath: PathBuf, outpath: PathBuf) {
             // replace the last 4 bytes of the data with the new checksum
             let data_len = chunk.data.len();
             chunk.data[data_len - 4..].copy_from_slice(&csum);
-            println!("Corrected Adler32 checksum");
+            // println!("Corrected Adler32 checksum");
         }
 
         let mut hasher = Hasher::new();
@@ -107,28 +105,29 @@ pub fn encoder(inpath: PathBuf, outpath: PathBuf) {
         let checksum = hasher.finalize();
 
         if checksum != u32::from_be_bytes(chunk.crc) {
-            println!("CRC error in chunk {:?}", chunk.kind_to_string());
+            // println!("CRC error in chunk {:?}", chunk.kind_to_string());
             chunk.crc = checksum.to_be_bytes();
-            println!("Corrected CRC");
+            // println!("Corrected CRC");
         }
 
         chunks.push(chunk);
     }
 
-    let ofile = File::create(outpath).unwrap();
-    let mut writer = BufWriter::new(ofile);
-
+    // new cursor
+    let mut newcursor = Cursor::new(Vec::new());
     // write a new header
-    writer
+    newcursor
         .write_all(&[0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A])
         .unwrap();
 
     for chunk in chunks {
-        writer
+        newcursor
             .write_all(&u32::to_be_bytes(chunk.data.len() as u32))
             .unwrap();
-        writer.write_all(&chunk.kind).unwrap();
-        writer.write_all(&chunk.data).unwrap();
-        writer.write_all(&chunk.crc).unwrap();
+        newcursor.write_all(&chunk.kind).unwrap();
+        newcursor.write_all(&chunk.data).unwrap();
+        newcursor.write_all(&chunk.crc).unwrap();
     }
+    let finalres: Vec<u8> = newcursor.into_inner();
+    finalres
 }

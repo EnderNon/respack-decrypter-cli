@@ -1,11 +1,8 @@
 mod idk;
 use clap::Parser;
 use glob::glob;
-use std::io::{Read};
-use std::{
-    fs::{metadata},
-    path::{PathBuf},
-};
+use std::{fs::{metadata}, path::{PathBuf}};
+use std::fs::{read, write, File};
 
 #[derive(Parser, Debug)]
 #[command(version, about, long_about = None)]
@@ -80,6 +77,8 @@ fn main() {
 
     for thatpath in filelist {
         println!("Filename: {:?}",thatpath);
-        idk::encoder(thatpath.to_owned(), thatpath)
+        let frfr = read(thatpath.to_owned()).expect("wtf the path doesnt exist");
+        let mut fr = idk::fix(frfr);
+        write(thatpath, fr).expect("file could not write btw");
     }
 }
