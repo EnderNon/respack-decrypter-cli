@@ -30,7 +30,7 @@ use std::fs;
 fn main() {
     let frfr = fs::read("filepath.png").expect("wtf the path doesnt exist");
     let mut fr = rpfixer::idk::fix(frfr);
-    fs::write(thatpath, fr).expect("file could not write btw");
+    fs::write("filepath.png", fr).expect("file could not write btw");
 }
 ```
 
