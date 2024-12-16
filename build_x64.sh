@@ -4,7 +4,7 @@ cargo build --target x86_64-pc-windows-gnu --package rpfixer --bin rpfixer --rel
 mkdir -p product
 
 cp ./target/x86_64-pc-windows-gnu/release/rpfixer.exe ./product/rpfixer-windows-x64.exe
-cp ./target/x86_64-unknown-linux-gnu/release/rpfixer ./product/rpfixer-linux-x64
+cp ./target/x86_64-unknown-linux-musl/release/rpfixer ./product/rpfixer-linux-x64
 
 pkgversion=$(cargo metadata --format-version=1 --no-deps | jq '.packages[] | select(.name == "rpfixer") | .version')
 echo "package version is:"
