@@ -12,8 +12,8 @@ This tool will not overcome any protection to the zip archive itself. See a prog
 - Go to the releases tab
 - Download for your system and unzip it
 - (Step for linux users only) run `chmod +x` on the executable
-- Open a command prompt (windows) 
-- Open a terminal / terminal emulator (linux)
+- Open a command prompt (windows) and run rpfixer.exe
+- Open a terminal / terminal emulator (linux) and run rpfixer.exe
 
 #### Cargo
 - Download the Rust-Lang for your system (WARNING: THIS IS LIKE 10GIGABYTES ON WINDOWS)
@@ -30,6 +30,13 @@ This tool will not overcome any protection to the zip archive itself. See a prog
   - `rpfixer` if you are on linux/mac (RUN `chmod +x rpfixer` ON IT FIRST) 
   - `rpfixer` if you are on windows
 
+## Syntax for CLI
+
+Check `--help` for syntax.
+
+Example syntax: `rpfixer --path ./filepath/`
+
+
 ## Function library
 - The library has one function: `rpfixer::fix`. Use a `Vec<u8>` in it.
 #### Example code
@@ -42,12 +49,6 @@ fn main() {
 }
 ```
 
-
-# Syntax
-
-Check `--help` for syntax.
-
-Example syntax:
 
 
 # License
