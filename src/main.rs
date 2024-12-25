@@ -27,9 +27,9 @@ struct Args {
 
 fn main() {
     // argument parsing yep
-    let Args: Args = Args::parse();
-    let mut pathfr = Args.path.clone();
-    let debugmode = Args.debug;
+    let args: Args = Args::parse();
+    let mut pathfr = args.path.clone();
+    let debugmode = args.debug;
 
     let mut filelist: Vec<PathBuf> = Vec::new();
 
@@ -59,7 +59,7 @@ fn main() {
                     filelist.push(path.display().to_string().parse().unwrap());
                 }
                 Err(e) => {
-                    eprintln!("Globbing error... uh oh...");
+                    eprintln!("Globbing error... uh oh... {}",e);
                 }
             }
         }

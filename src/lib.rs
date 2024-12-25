@@ -12,7 +12,6 @@ use std::io::Cursor;
 use std::{
     fmt::Debug,
     io::{Read, Write},
-    usize,
 };
 
 struct Chunk {
@@ -31,11 +30,6 @@ impl Debug for Chunk {
     }
 }
 
-impl Chunk {
-    fn kind_to_string(&self) -> String {
-        String::from_utf8_lossy(&self.kind).to_string()
-    }
-}
 
 pub fn fix(bytes: Vec<u8>) -> Vec<u8> {
     let mut bufread = Cursor::new(bytes);
