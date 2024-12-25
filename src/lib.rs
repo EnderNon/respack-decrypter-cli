@@ -37,7 +37,7 @@ impl Chunk {
     }
 }
 
-pub fn fix(mut bytes: Vec<u8>) -> Vec<u8> {
+pub fn fix(bytes: Vec<u8>) -> Vec<u8> {
     let mut bufread = Cursor::new(bytes);
 
     // read the png header
@@ -47,7 +47,7 @@ pub fn fix(mut bytes: Vec<u8>) -> Vec<u8> {
     let mut chunks = Vec::new();
 
     let mut lenbuf = [0; 4];
-    while let Ok(_) = bufread.read_exact(&mut lenbuf) {
+    while bufread.read_exact(&mut lenbuf).is_ok() {
         let len = u32::from_be_bytes(lenbuf);
 
         let mut kind = [0; 4];

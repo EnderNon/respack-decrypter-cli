@@ -75,8 +75,8 @@ fn main() {
 
     for thatpath in filelist {
         println!("Filename: {:?}", thatpath);
-        let frfr = read(thatpath.to_owned()).expect("wtf the path doesnt exist");
-        let mut fr = lib::fix(frfr);
+        let frfr = read(&thatpath).expect("wtf the path doesnt exist");
+        let fr = lib::fix(frfr);
         write(thatpath, fr).expect("file could not write btw");
     }
 }
